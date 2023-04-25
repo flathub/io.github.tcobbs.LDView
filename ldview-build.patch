@@ -56,27 +56,4 @@ index b2f6574..d552bbe 100644
  -SnapshotTNMetas=1
  if [ -f $output.png ] ; then
  	mv -f $output.png $output
-diff --git a/QT/desktop/ldview.desktop b/QT/desktop/ldview.desktop
-index 57f22ac..8b5f1cc 100644
---- a/QT/desktop/ldview.desktop
-+++ b/QT/desktop/ldview.desktop
-@@ -7,5 +7,5 @@ Exec=LDView %f
- Icon=gnome-ldraw
- Terminal=false
- Type=Application
--MimeType=application/x-ldraw;application/x-multipart-ldraw;
-+MimeType=application/x-ldraw;application/x-multipart-ldraw;application/x-multi-part-ldraw;
- Categories=Graphics;3DGraphics;Viewer;
-diff --git a/QT/kde/ldviewthumbnailcreator.desktop b/QT/kde/ldviewthumbnailcreator.desktop
-index eb69911..dc6e8de 100644
---- a/QT/kde/ldviewthumbnailcreator.desktop
-+++ b/QT/kde/ldviewthumbnailcreator.desktop
-@@ -3,7 +3,7 @@ Encoding=UTF-8
- Type=Service
- Name=LDView
- X-KDE-ServiceTypes=ThumbCreator
--MimeType=application/x-ldraw;application/x-multipart-ldraw
-+MimeType=application/x-ldraw;application/x-multipart-ldraw;application/x-multi-part-ldraw
- CacheThumbnail=true
- X-KDE-Library=ldviewthumbnail
- 
+

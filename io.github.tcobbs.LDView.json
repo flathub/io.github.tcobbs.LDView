@@ -1,7 +1,7 @@
 {
     "id": "io.github.tcobbs.LDView",
     "runtime": "org.kde.Platform",
-    "runtime-version": "5.15-21.08",
+    "runtime-version": "5.15-22.08",
     "sdk": "org.kde.Sdk",
     "command": "LDView",
     "rename-desktop-file": "ldview.desktop",
@@ -26,8 +26,8 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://github.com/leozide/leocad/releases/download/v21.01/Library-20.03.zip",
-                    "sha256": "88d6d28b3a494a15ae63e984c1e732e28362fabc2e145ffab828fed2eb5e3632"
+                    "url": "https://github.com/leozide/leocad/releases/download/v23.03/Library-23.01.zip",
+                    "sha256": "4f864ba05417ee0889b47706ea0b6a99dc8bfc3a52c9899a5b3b141cdfba970b"
                 }
             ]
         },
@@ -57,8 +57,8 @@
                 {
                     "type": "git",
                     "url": "https://github.com/tcobbs/ldview.git",
-                    "tag": "v4.4.1",
-                    "commit": "398248695c4ac4f8f806f65e8f19f124b1be2159"
+                    "tag": "v4.5",
+                    "commit": "bed5daf704ede39220ca5c0eca82b49fc022784f"
                 },
                 {
                     "type": "file",
