@@ -15,6 +15,7 @@
    files. It then allows you to rotate the model around to any angle
    with the mouse.</p>
  </description>
+ <developer_name>LDView developers</developer_name>
  <content_rating type="oars-1.1" />
  <launchable type="desktop-id">io.github.tcobbs.LDView.desktop</launchable>
  <translation type="qt">ldview</translation>
@@ -28,6 +29,7 @@
  <url type="homepage">https://tcobbs.github.io/ldview/</url>
  <url type="bugtracker">https://github.com/tcobbs/ldview/issues</url>
  <releases>
+   <release version="4.5" date="2023-04-23" />
    <release version="4.4.1" date="2022-02-11" />
    <release version="4.4" date="2021-07-05" />
    <release version="4.3" date="2018-01-30" />
