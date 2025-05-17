@@ -1,24 +1,21 @@
 diff --git a/Makefile.inc b/Makefile.inc
-index f0f2398..8cdedf8 100644
+index d3a0caa6..e5d6b8ef 100644
 --- a/Makefile.inc
 +++ b/Makefile.inc
-@@ -3,10 +3,10 @@ ifeq ($(shell uname), FreeBSD)
- CXX = c++
- else
- CC = gcc
+@@ -6,7 +6,7 @@ CC = gcc
  CXX = g++
  ifeq ($(shell if [ `uname -m` = x86_64 -o `uname -m` = i386 -o `uname -m` = i486 -o `uname -m` = i586 -o `uname -m` = i686 ]; then echo OK; fi),OK)
+ ifeq ($(shell if [ -f ../lib/lib3ds-64.a -a -f ../lib/lib3ds.a ] ; then echo OK; fi),OK)
 -EXPORT_3DS=-DEXPORT_3DS
 +#EXPORT_3DS=-DEXPORT_3DS
  endif
  endif
- RM = rm -f
- RMDIR = rm -rf
+ endif
 diff --git a/QT/LDView.pro b/QT/LDView.pro
-index 94900d8..ecf042d 100644
+index 43f4dde0..de0bdb69 100644
 --- a/QT/LDView.pro
 +++ b/QT/LDView.pro
-@@ -55,7 +55,9 @@ DEFINES		+= QT_THREAD_SUPPORT _QT
+@@ -57,7 +57,9 @@ DEFINES		+= QOFFSCREEN
  #      - Background is transparent for ModelViewerWidget
  #DEFINES	+= QOPENGLWIDGET
  
@@ -29,24 +26,41 @@ index 94900d8..ecf042d 100644
  isEmpty(BINDIR):BINDIR			= $$PREFIX/bin
  isEmpty(DATADIR):DATADIR		= $$PREFIX/share
  isEmpty(DOCDIR):DOCDIR			= $$DATADIR/doc
-@@ -58,11 +60,11 @@ OBJECTS_DIR = .obj$$POSTFIX
- MAKEOPT += \"TESTING=-I$$[QT_INSTALL_HEADERS] $$QMAKE_CXXFLAGS_STATIC_LIB $(TESTING)\"
- 
+@@ -84,7 +86,7 @@ MAKEOPT += \"TESTING=-I$$[QT_INSTALL_HEADERS] $$QMAKE_CXXFLAGS_STATIC_LIB $(TEST
+ exists(../lib/lib3ds-64.a){
  linux-g++-64{
+ message("WARNING: lib3ds local binary in use")
 -DEFINES 	+= EXPORT_3DS
 +#DEFINES 	+= EXPORT_3DS
  }
- linux-g++-32{
- DEFINES 	+= EXPORT_3DS
  }
- 
- #DEFINES 	+= _NO_BOOST
- 
+ exists(../lib/lib3ds.a){
+diff --git a/QT/desktop/io.github.tcobbs.LDView.metainfo.xml b/QT/desktop/io.github.tcobbs.LDView.metainfo.xml
+index 067d5105..cfc89b81 100644
+--- a/QT/desktop/io.github.tcobbs.LDView.metainfo.xml
++++ b/QT/desktop/io.github.tcobbs.LDView.metainfo.xml
+@@ -15,6 +15,7 @@
+    files. It then allows you to rotate the model around to any angle
+    with the mouse.</p>
+  </description>
++ <developer_name>LDView developers</developer_name>
+  <content_rating type="oars-1.1" />
+  <launchable type="desktop-id">ldview.desktop</launchable>
+  <translation type="qt">ldview</translation>
+@@ -28,6 +29,8 @@
+  <url type="homepage">https://tcobbs.github.io/ldview/</url>
+  <url type="bugtracker">https://github.com/tcobbs/ldview/issues</url>
+  <releases>
++   <release version="4.6" date="2025-05-10" />
++   <release version="4.5" date="2023-04-23" />
+    <release version="4.4.1" date="2022-02-11" />
+    <release version="4.4" date="2021-07-05" />
+    <release version="4.3" date="2018-01-30" />
 diff --git a/QT/desktop/ldraw-thumbnailer b/QT/desktop/ldraw-thumbnailer
-index b2f6574..d552bbe 100644
+index bfac14e2..7aae28e7 100644
 --- a/QT/desktop/ldraw-thumbnailer
 +++ b/QT/desktop/ldraw-thumbnailer
-@@ -22,8 +22,8 @@ size=$3
+@@ -26,7 +26,7 @@ fi
  if [ -f /tmp/ldraw-thumbnailer.log ] ; then
  	echo $input $output $size $dir>>/tmp/ldraw-thumbnailer.log
  fi
@@ -54,6 +68,4 @@ index b2f6574..d552bbe 100644
 +/app/bin/$LDVIEW "$uri" -SaveSnapshot=$output -CheckPartTracker=0 \
  -SaveWidth=$size -SaveHeight=$size -ShowErrors=0 -SaveActualSize=0 $INI \
  -SnapshotTNMetas=1
- if [ -f $output.png ] ; then
- 	mv -f $output.png $output
-
+ if [ -f $output ] ; then
