@@ -17,6 +17,7 @@
         "--device=dri",
         "--filesystem=xdg-documents",
         "--env=TMPDIR=/var/tmp",
+        "--env=QT_ENABLE_HIGHDPI_SCALING=1",
         "--env=LDRAWDIR=/app/share/ldraw"
     ],
     "cleanup": [
@@ -49,8 +50,8 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://zlib.net/zlib-1.3.1.tar.gz",
-                    "sha256": "9a93b2b7dfdac77ceba5a558a580e74667dd6fede4585b91eefb60f03b72df23",
+                    "url": "https://zlib.net/zlib-1.3.2.tar.gz",
+                    "sha256": "bb329a0a2cd0274d05519d61c667c062e06990d72e125ee2dfa8de64f0119d16",
                     "x-checker-data": {
                         "type": "anitya",
                         "project-id": 5303,
@@ -90,8 +91,8 @@
                 {
                     "type": "git",
                     "url": "https://github.com/tcobbs/ldview.git",
-                    "tag": "v4.6",
-                    "commit": "70b11905e8b5f9b5c5a8946b4d73a41217e86916"
+                    "tag": "v4.7",
+                    "commit": "1e390e405e0dd9cc252c4e448ccfdd4fc22291ea"
                 },
                 {
                     "type": "patch",
