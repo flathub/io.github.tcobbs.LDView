@@ -1,18 +1,26 @@
+commit af755c26c98d75c1f4cb089c26d8cefd352e3b66
+Author: Hubert Figuière <hub@figuiere.net>
+Date:   Tue Feb 24 00:39:56 2026 -0500
+
+    flatpak build patch
+    
+    Signed-off-by: Hubert Figuière <hub@figuiere.net>
+
 diff --git a/Makefile.inc b/Makefile.inc
-index d3a0caa6..e5d6b8ef 100644
+index b4e2ddde..7cd7722c 100644
 --- a/Makefile.inc
 +++ b/Makefile.inc
-@@ -6,7 +6,7 @@ CC = gcc
- CXX = g++
- ifeq ($(shell if [ `uname -m` = x86_64 -o `uname -m` = i386 -o `uname -m` = i486 -o `uname -m` = i586 -o `uname -m` = i686 ]; then echo OK; fi),OK)
- ifeq ($(shell if [ -f ../lib/lib3ds-64.a -a -f ../lib/lib3ds.a ] ; then echo OK; fi),OK)
--EXPORT_3DS=-DEXPORT_3DS
-+#EXPORT_3DS=-DEXPORT_3DS
- endif
- endif
- endif
+@@ -9,7 +9,7 @@ RM = rm -f
+ RMDIR = rm -rf
+ MAKEDEPEND = gcc -MM
+ 
+-CFLAGS = -o $(OBJDIR)/$*.o $(TESTING) -Wall -D_GNU_SOURCE -DEXPORT_3DS
++CFLAGS = -o $(OBJDIR)/$*.o $(TESTING) -Wall -D_GNU_SOURCE #-DEXPORT_3DS
+ 
+ ifeq ($(shell if [ -f /usr/include/minizip/unzip.h -o -f /usr/local/include/minizip/unzip.h ] ; then echo OK; fi),OK)
+ CFLAGS += -DHAVE_MINIZIP
 diff --git a/QT/LDView.pro b/QT/LDView.pro
-index 43f4dde0..de0bdb69 100644
+index c8a82d1a..7a14fd3c 100644
 --- a/QT/LDView.pro
 +++ b/QT/LDView.pro
 @@ -57,7 +57,9 @@ DEFINES		+= QOFFSCREEN
@@ -26,17 +34,17 @@ index 43f4dde0..de0bdb69 100644
  isEmpty(BINDIR):BINDIR			= $$PREFIX/bin
  isEmpty(DATADIR):DATADIR		= $$PREFIX/share
  isEmpty(DOCDIR):DOCDIR			= $$DATADIR/doc
-@@ -84,7 +86,7 @@ MAKEOPT += \"TESTING=-I$$[QT_INSTALL_HEADERS] $$QMAKE_CXXFLAGS_STATIC_LIB $(TEST
- exists(../lib/lib3ds-64.a){
- linux-g++-64{
- message("WARNING: lib3ds local binary in use")
+@@ -81,7 +83,7 @@ MAKEOPT += POSTFIX=$$POSTFIX
+ OBJECTS_DIR = .obj$$POSTFIX
+ MAKEOPT += \"TESTING=-I$$[QT_INSTALL_HEADERS] $$QMAKE_CXXFLAGS_STATIC_LIB $(TESTING)\"
+ 
 -DEFINES 	+= EXPORT_3DS
 +#DEFINES 	+= EXPORT_3DS
- }
- }
- exists(../lib/lib3ds.a){
+ #DEFINES 	+= _NO_BOOST
+ 
+ QMAKE_CXXFLAGS       += $(Q_CXXFLAGS)
 diff --git a/QT/desktop/io.github.tcobbs.LDView.metainfo.xml b/QT/desktop/io.github.tcobbs.LDView.metainfo.xml
-index 067d5105..cfc89b81 100644
+index 067d5105..2cb94238 100644
 --- a/QT/desktop/io.github.tcobbs.LDView.metainfo.xml
 +++ b/QT/desktop/io.github.tcobbs.LDView.metainfo.xml
 @@ -15,6 +15,7 @@
@@ -47,25 +55,26 @@ index 067d5105..cfc89b81 100644
   <content_rating type="oars-1.1" />
   <launchable type="desktop-id">ldview.desktop</launchable>
   <translation type="qt">ldview</translation>
-@@ -28,6 +29,8 @@
+@@ -28,6 +29,9 @@
   <url type="homepage">https://tcobbs.github.io/ldview/</url>
   <url type="bugtracker">https://github.com/tcobbs/ldview/issues</url>
   <releases>
++   <release version="4.7" date="2026-02-23" />
 +   <release version="4.6" date="2025-05-10" />
 +   <release version="4.5" date="2023-04-23" />
     <release version="4.4.1" date="2022-02-11" />
     <release version="4.4" date="2021-07-05" />
     <release version="4.3" date="2018-01-30" />
 diff --git a/QT/desktop/ldraw-thumbnailer b/QT/desktop/ldraw-thumbnailer
-index bfac14e2..7aae28e7 100644
+index bca16e8a..c93c45e5 100644
 --- a/QT/desktop/ldraw-thumbnailer
 +++ b/QT/desktop/ldraw-thumbnailer
-@@ -26,7 +26,7 @@ fi
+@@ -24,7 +24,7 @@ INI="-LDrawDir=/usr/share/ldraw -LDrawZip=/usr/share/ldraw/complete.zip"
  if [ -f /tmp/ldraw-thumbnailer.log ] ; then
  	echo $input $output $size $dir>>/tmp/ldraw-thumbnailer.log
  fi
--/usr/bin/$LDVIEW "$uri" -SaveSnapshot=$output -CheckPartTracker=0 \
-+/app/bin/$LDVIEW "$uri" -SaveSnapshot=$output -CheckPartTracker=0 \
+-/usr/bin/ldview "$uri" -SaveSnapshot=$output -CheckPartTracker=0 \
++/app/bin/ldview "$uri" -SaveSnapshot=$output -CheckPartTracker=0 \
  -SaveWidth=$size -SaveHeight=$size -ShowErrors=0 -SaveActualSize=0 $INI \
  -SnapshotTNMetas=1
  if [ -f $output ] ; then
